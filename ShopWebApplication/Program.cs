@@ -8,7 +8,7 @@ builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
 
 builder.Services.AddDbContext<PizzaStoreContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("PizzaDb")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("PizzaDb2")));
 
 // Add filter
 builder.Services.AddMvc();

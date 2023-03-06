@@ -36,7 +36,7 @@
 						</div>
 						<p class="fw-bold">Category: @Html.DisplayFor(i => item.Category.CategoryName)</p>
 						<p class="card-text">@Html.DisplayFor(i => item.Description)</p>
-						<a href="#" class="btn btn-primary">Add Pizza</a>
+						<button onclick="addToCart(@item.ProductId)" class="btn btn-primary">Add Pizza</button>
 					</div>
 				</div>
 			</div>
@@ -46,3 +46,20 @@
 @foreach (var item in Model)
 {
 }
+<script>
+ function addToCart(id){
+		try {
+			var cart = JSON.parse(localStorage.getItem('cart'));
+			cart.push(id);
+			localStorage.setItem('cart', JSON.stringify(cart));
+		}
+		catch (err) {
+			var cart = [];
+			console.log(cart);
+			cart.push(id);
+			localStorage.setItem('cart', JSON.stringify(cart));
+		}
+
+
+	}
+</script>

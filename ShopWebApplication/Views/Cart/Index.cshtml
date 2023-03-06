@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 id="1"></h1>
+
+<buton onclick="Clear()" class="btn btn-primary">Clear</buton>
+
+<script>
+    window.addEventListener('load', function () {
+        document.getElementById("1").innerHTML = localStorage.getItem('cart');
+    })
+    function Clear()
+    {
+        localStorage.removeItem("cart");
+        document.getElementById("1").innerHTML = localStorage.getItem('cart');
+    }
+</script>
