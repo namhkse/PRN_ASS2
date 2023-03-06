@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ShopWebApplication.Models;
 
 namespace ShopWebApplication.Models;
 

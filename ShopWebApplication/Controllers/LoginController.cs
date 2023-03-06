@@ -45,5 +45,28 @@ namespace ShopWebApplication.Controllers
             HttpContext.Session.Clear();
             return Redirect("/Products");
         }
-    }
+
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+		public IActionResult Register(Register register)
+		{
+            if(register.Password != register.PasswordConfirm)
+            {
+                ModelState.AddModelError(string.Empty, "check password");
+                return View(register);
+            }
+			Account account = new Account();
+            account.UserName = register.UserName;
+            account.Password = register.Password;
+            account.FullName = register.FullName;
+            _context.Accounts.Add(account);
+            _context.SaveChanges();
+			return View();
+		}
+
+	}
 }
