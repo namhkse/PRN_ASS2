@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Configuration;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ShopWebApplication.Models;
 
@@ -41,14 +38,14 @@ public partial class Product
 
     public virtual Supplier Supplier { get; set; } = null!;
 
-	public override bool Equals(object? obj)
-	{
-		return obj is Product product &&
-			   ProductId == product.ProductId;
-	}
+    public override bool Equals(object? obj)
+    {
+        return obj is Product product &&
+               ProductId == product.ProductId;
+    }
 
-	public override int GetHashCode()
-	{
-		return HashCode.Combine(ProductId);
-	}
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(ProductId);
+    }
 }
