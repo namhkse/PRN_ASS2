@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ShopWebApplication.Filters;
@@ -23,34 +19,29 @@ namespace ShopWebApplication.Controllers
         // GET: Orders
         public async Task<IActionResult> Index()
         {
-            var pizzaStoreContext = _context.Orders.Include(o => o.Customer);
+            Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Order, Customer> pizzaStoreContext = _context.Orders.Include(o => o.Customer);
             return View(await pizzaStoreContext.ToListAsync());
         }
 
         [Route("/Orders/History/{customerId:int}")]
-		public async Task<IActionResult> History([FromRoute] int customerId)
-		{
-			var pizzaStoreContext = _context.Orders.Where(o => o.CustomerId == customerId).Include(o => o.Customer);
-			return View(await pizzaStoreContext.ToListAsync());
-		}
+        public async Task<IActionResult> History([FromRoute] int customerId)
+        {
+            Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Order, Customer> pizzaStoreContext = _context.Orders.Where(o => o.CustomerId == customerId).Include(o => o.Customer);
+            return View(await pizzaStoreContext.ToListAsync());
+        }
 
-		// GET: Orders/Details/5
-		public async Task<IActionResult> Details(int? id)
+        // GET: Orders/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Orders == null)
             {
                 return NotFound();
             }
 
-            var order = await _context.Orders
+            Order? order = await _context.Orders
                 .Include(o => o.Customer)
                 .FirstOrDefaultAsync(m => m.OrderId == id);
-            if (order == null)
-            {
-                return NotFound();
-            }
-
-            return View(order);
+            return order == null ? NotFound() : View(order);
         }
 
         // GET: Orders/Create
@@ -85,7 +76,7 @@ namespace ShopWebApplication.Controllers
                 return NotFound();
             }
 
-            var order = await _context.Orders.FindAsync(id);
+            Order? order = await _context.Orders.FindAsync(id);
             if (order == null)
             {
                 return NotFound();
@@ -138,15 +129,10 @@ namespace ShopWebApplication.Controllers
                 return NotFound();
             }
 
-            var order = await _context.Orders
+            Order? order = await _context.Orders
                 .Include(o => o.Customer)
                 .FirstOrDefaultAsync(m => m.OrderId == id);
-            if (order == null)
-            {
-                return NotFound();
-            }
-
-            return View(order);
+            return order == null ? NotFound() : View(order);
         }
 
         // POST: Orders/Delete/5
@@ -158,19 +144,19 @@ namespace ShopWebApplication.Controllers
             {
                 return Problem("Entity set 'PizzaStoreContext.Orders'  is null.");
             }
-            var order = await _context.Orders.FindAsync(id);
+            Order? order = await _context.Orders.FindAsync(id);
             if (order != null)
             {
                 _context.Orders.Remove(order);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool OrderExists(int id)
         {
-          return _context.Orders.Any(e => e.OrderId == id);
+            return _context.Orders.Any(e => e.OrderId == id);
         }
     }
 }

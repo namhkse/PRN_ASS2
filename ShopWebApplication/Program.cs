@@ -1,14 +1,13 @@
 using Microsoft.EntityFrameworkCore;
-using ShopWebApplication.Filters;
 using ShopWebApplication.Models;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add session service
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
 
-builder.Services.AddDbContext<PizzaStoreContext>(options => 
+builder.Services.AddDbContext<PizzaStoreContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("PizzaDb")));
 
 // Add filter
@@ -16,7 +15,7 @@ builder.Services.AddMvc();
 
 builder.Services.AddTransient(typeof(PizzaStoreContext), typeof(PizzaStoreContext));
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
