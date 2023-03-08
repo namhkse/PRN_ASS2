@@ -4,10 +4,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+    // .AddRazorPagesOptions(options => options.Conventions.AddPageRoute("/Products/Index", ""));
 
 builder.Services.AddSqlServer<PizzaStoreContext>(builder.Configuration.GetConnectionString("PizzaDb"));
 
-builder.Services.AddTransient<PizzaStoreContext, PizzaStoreContext>();
+builder.Services.AddLogging();
 
 var app = builder.Build();
 
@@ -21,11 +22,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
-
 app.MapRazorPages();
-
 app.Run();

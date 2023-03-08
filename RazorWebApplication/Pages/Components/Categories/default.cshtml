@@ -1,0 +1,18 @@
+﻿
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using RazorWebApplication.Models
+@model List<Category>
+
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Categories
+    </a>
+    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+        @foreach(var category in Model)
+        {
+            <li>
+                <a class="dropdown-item" href="/Products?categoryId=@category.CategoryId">@category.CategoryName</a>
+            </li>
+        }
+    </ul>
+</li>
