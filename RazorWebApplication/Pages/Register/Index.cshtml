@@ -1,0 +1,21 @@
+@page
+@model IndexModel
+
+<form method="post">
+    <div>
+        <lable asp-for="FullName">Full Name</lable><input asp-for="FullName" />
+    </div>
+    <div>
+        <lable asp-for="FullName">Username</lable><input asp-for="Username" />
+    </div>
+    <div>
+        <lable asp-for="FullName">Password</lable><input asp-for="Password" />
+    </div>
+    <div>
+        <input type="submit">
+    </div>
+</form>
+@if (!string.IsNullOrEmpty(@Model.RegisterMessage))
+{
+    <h3 class="bg-warning">@Model.RegisterMessage</h3>
+}

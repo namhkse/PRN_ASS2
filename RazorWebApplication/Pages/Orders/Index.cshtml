@@ -1,0 +1,29 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Order History";
+}
+
+<table class="table">
+    <thead>
+        <th>Order Id</th>
+        <th>Ship Address</th>
+        <th>Order Date</th>
+        <th>Required Date</th>
+        <th>Shipped Date</th>
+        <th>Order Status</th>
+    </thead>
+    <tbody>
+        @foreach (var order in Model.Orders)
+        {
+           <tr>
+            <td>@order.OrderId</td>
+            <td>@order.ShipAddress</td>
+            <td>@order.OrderDate</td>
+            <td>@order.RequiredDate</td>
+            <td>@order.ShippedDate</td>
+            <td>@(order.ShippedDate != null ? "Shipped" : "Shipping")</td>
+           </tr>  
+        } 
+    </tbody>
+</table>

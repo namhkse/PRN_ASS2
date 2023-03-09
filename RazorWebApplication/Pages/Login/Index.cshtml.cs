@@ -43,6 +43,7 @@ namespace RazorWebApplication.Pages.Login
         {
             var session = HttpContext.Session;
             session.SetString("username", account.UserName);
+            session.SetInt32("accountId", account.AccountId);
             session.SetInt32("logged", 1);
             session.SetInt32("accountType", account.Type);
         }
