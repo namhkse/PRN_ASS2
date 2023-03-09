@@ -5,10 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using RazorWebApplication.Filters;
 using RazorWebApplication.Models;
 
 namespace RazorWebApplication.Pages.Products
 {
+
+    [LoginFilter]
     public class ManageModel : PageModel
     {
         private readonly RazorWebApplication.Models.PizzaStoreContext _context;
@@ -25,8 +28,8 @@ namespace RazorWebApplication.Pages.Products
             if (_context.Products != null)
             {
                 Product = await _context.Products
-                .Include(p => p.Category)
-                .Include(p => p.Supplier).ToListAsync();
+                    .Include(p => p.Category)
+                    .Include(p => p.Supplier).ToListAsync();
             }
         }
     }

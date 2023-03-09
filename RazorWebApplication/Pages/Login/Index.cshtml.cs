@@ -6,20 +6,21 @@ namespace RazorWebApplication.Pages.Login
 {
     public class IndexModel : PageModel
     {
-        private readonly RazorWebApplication.Models.PizzaStoreContext _context;
-
-        public string LoginMessage;
+        [BindProperty] public string LoginMessage{get; set;}
         [BindProperty] public string Username {get; set;}
         [BindProperty] public string Password {get; set;}
+
+        private readonly RazorWebApplication.Models.PizzaStoreContext _context;
 
         public IndexModel(PizzaStoreContext context)
         {
             _context = context;
         }
 
-        public IActionResult OnGet()
+        public IActionResult OnGetLogout()
         {
-            return Page();
+            ClearSession();
+            return Redirect("/Products");
         }
 
         public IActionResult OnPost()
@@ -33,8 +34,22 @@ namespace RazorWebApplication.Pages.Login
             }
             else
             {
+                SetAccountToSession(account);
                 return Redirect("/Products");
             }
+        }
+
+        private void SetAccountToSession(Account account)
+        {
+            var session = HttpContext.Session;
+            session.SetString("username", account.UserName);
+            session.SetInt32("logged", 1);
+            session.SetInt32("accountType", account.Type);
+        }
+
+        private void ClearSession()
+        {
+            HttpContext.Session.Clear();
         }
     }
 }

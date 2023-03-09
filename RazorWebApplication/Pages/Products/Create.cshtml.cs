@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using RazorWebApplication.Filters;
 using RazorWebApplication.Models;
 
-namespace RazorWebApplication.Pages
+namespace RazorWebApplication.Pages.Products
 {
+    [AccountTypeFilter(1, 2)]
     public class CreateModel : PageModel
     {
         private readonly RazorWebApplication.Models.PizzaStoreContext _context;
@@ -20,8 +22,8 @@ namespace RazorWebApplication.Pages
 
         public IActionResult OnGet()
         {
-        ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryId");
-        ViewData["SupplierId"] = new SelectList(_context.Suppliers, "SupplierId", "SupplierId");
+        ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName");
+        ViewData["SupplierId"] = new SelectList(_context.Suppliers, "SupplierId", "CompanyName");
             return Page();
         }
 
@@ -32,7 +34,11 @@ namespace RazorWebApplication.Pages
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid)
+
+            ModelState.Remove("Product.Category");
+            ModelState.Remove("Product.Supplier");
+
+            if (!ModelState.IsValid)
             {
                 return Page();
             }

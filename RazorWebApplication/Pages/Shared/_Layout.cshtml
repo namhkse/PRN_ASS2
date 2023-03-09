@@ -14,7 +14,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="Products">Pizza Store</a>
+                <a class="navbar-brand" asp-area="" asp-page="/Products/Index">Pizza Store</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -33,12 +33,27 @@
 
                 <div class="d-flex justify-content-end">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Login" asp-action="Register">Register</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/Login">Login</a>
-                        </li>
+                        @if(Context.Session.GetInt32("logged") == null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-page="/Register">Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Login">Login</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Products/Manage">Manage Page</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link">Hello @Context.Session.GetString("username")!</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Login?handler=Logout">Logout</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
