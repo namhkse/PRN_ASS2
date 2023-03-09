@@ -1,21 +1,30 @@
 @page
 @model IndexModel
 
-<form method="post">
-    <div>
-        <lable asp-for="FullName">Full Name</lable><input asp-for="FullName" />
+<div class="container m-2">
+    <h2>Register</h2>
+    <div class="row">
+        <form method="post" class="col-6">
+            <div class="form-group">
+                <lable asp-for="FullName">Full Name</lable>
+                <input class="form-control" asp-for="FullName" />
+            </div>
+            <div class="form-group">
+                <lable asp-for="Username">Username</lable>
+                <input class="form-control" asp-for="Username" />
+            </div>
+            <div class="form-group">
+                <lable asp-for="Password">Password</lable>
+                <input class="form-control" asp-for="Password" />
+            </div>
+            <div class="form-group mt-2">
+                <input class="btn btn-primary" type="submit" value="Register">
+            </div>
+        </form>
+
+        @if (!string.IsNullOrEmpty(@Model.RegisterMessage))
+        {
+            <p class="bg-warning">@Model.RegisterMessage</p>
+        }
     </div>
-    <div>
-        <lable asp-for="FullName">Username</lable><input asp-for="Username" />
-    </div>
-    <div>
-        <lable asp-for="FullName">Password</lable><input asp-for="Password" />
-    </div>
-    <div>
-        <input type="submit">
-    </div>
-</form>
-@if (!string.IsNullOrEmpty(@Model.RegisterMessage))
-{
-    <h3 class="bg-warning">@Model.RegisterMessage</h3>
-}
+</div>

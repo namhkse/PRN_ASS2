@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using RazorWebApplication.Models;
@@ -8,7 +9,10 @@ namespace RazorWebApplication.Pages.Login
     {
         [BindProperty] public string LoginMessage{get; set;}
         [BindProperty] public string Username {get; set;}
-        [BindProperty] public string Password {get; set;}
+
+        [BindProperty] 
+        [DataType(DataType.Password)]
+        public string Password {get; set;}
 
         private readonly RazorWebApplication.Models.PizzaStoreContext _context;
 

@@ -4,7 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-    // .AddRazorPagesOptions(options => options.Conventions.AddPageRoute("/Products/Index", ""));
+builder.Services.AddMvc().AddRazorPagesOptions(options => options.Conventions.AddPageRoute("/Products/Index", ""));
 builder.Services.AddSession();
 builder.Services.AddMemoryCache();
 builder.Services.AddSqlServer<PizzaStoreContext>(builder.Configuration.GetConnectionString("PizzaDb"));

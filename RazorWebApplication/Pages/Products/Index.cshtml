@@ -2,7 +2,7 @@
 @model RazorWebApplication.Pages.Products.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+	ViewData["Title"] = "Index";
 }
 <h1>Pizza Menu</h1>
 
@@ -36,10 +36,39 @@
 						</div>
 						<p class="fw-bold">Category: @Html.DisplayFor(i => item.Category.CategoryName)</p>
 						<p class="card-text">@Html.DisplayFor(i => item.Description)</p>
-						<a href="#" class="btn btn-primary">Add Pizza</a>
+						<button class="btn btn-primary"
+							onclick="addProduct(@item.ProductId, '@item.ProductName', @item.UnitPrice, 1, 1)">
+							Add Pizza
+						</button>
 					</div>
 				</div>
 			</div>
 		}
 	</div>
 </div>
+
+<script>
+
+	class Product {
+		constructor(id, title, price, quantity, total) {
+			this.id = id;
+			this.title = title;
+			this.price = price;
+			this.quantity = quantity;
+			this.total = total;
+		}
+	}
+
+	function addProduct(id, title, price, quantity, total) {
+		console.log('okkk')
+		let product = new Product(id, total, price, quantity, total);
+		let products = [];
+		if (localStorage.getItem('products')) {
+			products = JSON.parse(localStorage.getItem('products'));
+		}
+		products.push(product);
+		localStorage.setItem('products', JSON.stringify(products));
+	}
+
+
+</script>

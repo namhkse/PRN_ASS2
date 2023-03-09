@@ -31,4 +31,17 @@ public partial class Product
     public virtual Category Category { get; set; } = null!;
 
     public virtual Supplier Supplier { get; set; } = null!;
+
+    public override bool Equals(object? obj)
+    {
+        return obj is Product product &&
+               ProductId == product.ProductId;
+    }
+
+    public override int GetHashCode()
+    {
+        HashCode hash = new HashCode();
+        hash.Add(ProductId);
+        return hash.ToHashCode();
+    }
 }

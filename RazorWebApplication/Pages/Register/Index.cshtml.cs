@@ -48,6 +48,10 @@ public class IndexModel : PageModel
                 RegisterMessage = "Register Successfully!";
             }
         }
+        else
+        {
+            RegisterMessage = "Invalid account information!";
+        }
     }
 
     private bool IsAccountExist(string username)
