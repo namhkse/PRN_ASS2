@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using RazorWebApplication.Filters;
 using RazorWebApplication.Models;
 
 namespace RazorWebApplication.Pages.Categories
 {
+    [AccountTypeFilter(1)]
     public class DeleteModel : PageModel
     {
         private readonly RazorWebApplication.Models.PizzaStoreContext _context;
